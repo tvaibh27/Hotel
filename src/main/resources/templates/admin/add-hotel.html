@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Add Hotel</title>
+</head>
+<body>
+<h2>Add New Hotel</h2>
+<form th:action="@{/admin/add-hotel}" th:object="${hotel}" method="post">
+  <label>Name:</label>
+  <input type="text" th:field="*{name}" required/><br/>
+
+  <label>Location:</label>
+  <input type="text" th:field="*{location}" required/><br/>
+
+  <label>Price:</label>
+  <input type="number" th:field="*{price}" required/><br/>
+
+  <button type="submit">Add Hotel</button>
+</form>
+</body>
+</html>

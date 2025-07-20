@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin - Hotel Management</title>
+</head>
+<body>
+
+<h2>Welcome, Admin!</h2>
+
+<!-- ✅ Admin Navigation Buttons -->
+<div>
+    <a th:href="@{/admin/add-hotel}">Add Hotel</a> |
+    <a th:href="@{/admin/bookings}">View Bookings</a> |
+    <a th:href="@{/admin/users}">View Users</a> |
+    <a th:href="@{/logout}">Logout</a>
+</div>
+
+<hr/>
+
+<h3>Hotel List</h3>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="hotel : ${hotels}">
+        <td th:text="${hotel.name}"></td>
+        <td th:text="${hotel.location}"></td>
+        <td th:text="${hotel.price}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

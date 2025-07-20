@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Payment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            padding: 40px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        form {
+            background-color: #ffffff;
+            width: 400px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Payment</h2>
+
+<form th:action="@{/user/payment}" method="post">
+    <label>Card Number:</label>
+    <input type="text" name="cardNumber" required/>
+
+    <label>Card Holder:</label>
+    <input type="text" name="cardHolder" required/>
+
+    <label>Expiry Date:</label>
+    <input type="text" name="expiry" placeholder="MM/YY" required/>
+
+    <label>CVV:</label>
+    <input type="text" name="cvv" required/>
+
+    <button type="submit">Pay Now</button>
+</form>
+
+</body>
+</html>
