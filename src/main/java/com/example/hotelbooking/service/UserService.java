@@ -19,14 +19,9 @@ public class UserService {
         userRepository.save(user);
     }
 
-    // ✅ Login method (returns matching user or throws error)
+    // ✅ Login method (returns matching user or null)
     public User login(String email, String password) {
-        List<User> users = userRepository.findByEmailAndPassword(email, password);
-        if (users.size() == 1) {
-            return users.get(0);
-        } else {
-            throw new RuntimeException("Invalid email/password or multiple users found.");
-        }
+        return userRepository.findByEmailAndPassword(email, password);
     }
 
     // ✅ Get user by ID
