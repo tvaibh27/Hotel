@@ -22,6 +22,7 @@ public class HotelController {
         return "user/hotels";
     }
 
+    // Admin - show add hotel form
     @GetMapping("/admin/add-hotel")
     public String showAddHotelForm(Model model, HttpSession session) {
         User user = (User) session.getAttribute("loggedInUser");
@@ -33,6 +34,7 @@ public class HotelController {
         return "admin/add-hotel";
     }
 
+    // Admin - save new hotel
     @PostMapping("/admin/add-hotel")
     public String addHotel(@ModelAttribute Hotel hotel, HttpSession session) {
         User user = (User) session.getAttribute("loggedInUser");
@@ -44,6 +46,7 @@ public class HotelController {
         return "redirect:/admin/hotels";
     }
 
+    // Admin - delete hotel
     @GetMapping("/admin/delete-hotel/{id}")
     public String deleteHotel(@PathVariable String id, HttpSession session) {
         User user = (User) session.getAttribute("loggedInUser");
