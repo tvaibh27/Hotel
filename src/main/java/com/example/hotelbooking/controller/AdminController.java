@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,33 +26,66 @@ public class AdminController {
     @Autowired
     private UserRepository userRepository;
 
+    // ✅ Admin - All Bookings
     @GetMapping("/admin/bookings")
     public String viewAllBookings(Model model, HttpSession session) {
         User user = (User) session.getAttribute("loggedInUser");
         if (user == null || !user.getRole().equalsIgnoreCase("ADMIN")) {
             return "redirect:/login";
         }
-        model.addAttribute("bookings", bookingRepository.findAll());
+
+        List<Booking> bookings = bookingRepository.findAll();
+        model.addAttribute("bookings", bookings);
         return "admin/bookings";
     }
 
-    @GetMapping("/admin/hotels")
-    public String viewAllHotels(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("loggedInUser");
-        if (user == null || !user.getRole().equalsIgnoreCase("ADMIN")) {
-            return "redirect:/login";
-        }
-        model.addAttribute("hotels", hotelRepository.findAll());
-        return "admin/hotels";
-    }
-
+    // ✅ Admin - All Users
     @GetMapping("/admin/users")
     public String viewAllUsers(Model model, HttpSession session) {
         User user = (User) session.getAttribute("loggedInUser");
         if (user == null || !user.getRole().equalsIgnoreCase("ADMIN")) {
             return "redirect:/login";
         }
-        model.addAttribute("users", userRepository.findAll());
+
+        List<User> users = userRepository.findAll();
+        model.addAttribute("users", users);
         return "admin/users";
+    }
+
+    // ✅ Admin - View Hotels Dashboard
+    @GetMapping("/admin/hotels")
+    public String viewAllHotels(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("loggedInUser");
+        if (user == null || !user.getRole().equalsIgnoreCase("ADMIN")) {
+            return "redirect:/login";
+        }
+
+        List<Hotel> hotels = hotelRepository.findAll();
+        model.addAttribute("hotels", hotels);
+        return "admin/hotels";
+    }
+
+    // ✅ Admin - Show Add Hotel Form
+    @GetMapping("/admin/add-hotel")
+    public String showAddHotelForm(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("loggedInUser");
+        if (user == null || !user.getRole().equalsIgnoreCase("ADMIN")) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("hotel", new Hotel());
+        return "admin/add-hotel";
+    }
+
+    // ✅ Admin - Handle Add Hotel Submission
+    @PostMapping("/admin/add-hotel")
+    public String addHotel(@ModelAttribute("hotel") Hotel hotel, HttpSession session) {
+        User user = (User) session.getAttribute("loggedInUser");
+        if (user == null || !user.getRole().equalsIgnoreCase("ADMIN")) {
+            return "redirect:/login";
+        }
+
+        hotelRepository.save(hotel);
+        return "redirect:/admin/hotels";
     }
 }
